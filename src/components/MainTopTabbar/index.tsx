@@ -1,12 +1,13 @@
 import { RootState } from "@redux/store";
 import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { styles } from "./styles";
 import Colors from "@utils/Colors";
 import { useSelector } from "react-redux";
+import { styles } from "./styles";
 
 
-const TopTabBar = ({ state, descriptors, navigation }: any) => {
+const MainTopTabBar = ({ state, descriptors, navigation }: any) => {
+  const Styles = styles();
   const {data, isLoading, isError} = useSelector(
     (state: RootState) => state.pendingDataReducer,
   );
@@ -36,7 +37,7 @@ const TopTabBar = ({ state, descriptors, navigation }: any) => {
         }, [])
       : [];
   return (
-    <View style={styles.container}>
+    <View style={Styles.container}>
       {state.routes.map((route: any, index: number) => {
         const { options } = descriptors[route.key];
         const label =
@@ -90,10 +91,10 @@ const TopTabBar = ({ state, descriptors, navigation }: any) => {
                     ? Colors.CLR_PERFECT_DARK
                     : "",
               },
-              styles.singleTabView,
+              Styles.singleTabView,
             ]}
           >
-            <Text style={styles.textStyle}>
+            <Text style={Styles.textStyle}>
               {label}
               {index === 1 && <Text> ({updatePendingData.length})</Text>}
             </Text>
@@ -104,4 +105,4 @@ const TopTabBar = ({ state, descriptors, navigation }: any) => {
   );
 };
 
-export default TopTabBar;
+export default MainTopTabBar;

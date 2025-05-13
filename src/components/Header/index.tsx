@@ -1,31 +1,42 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Image, Text, View, useWindowDimensions, TouchableOpacity } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons'; // For the hamburger icon
-import { useNavigation } from '@react-navigation/native'; // To control navigation
-import { styles } from './styles'; // Assuming you have a styles file
-import Colors from '@utils/Colors'; // For your color palette
+import Ionicons from 'react-native-vector-icons/Ionicons'; 
+import { useNavigation } from '@react-navigation/native'; 
+import { styles } from './styles'; 
+import Colors from '@utils/Colors'; 
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 
-const Header = () => {
+interface HeaderProps {
+  hideHamburgerIcon?: boolean;
+}
+
+type RootDrawerParamList = {
+  CALENDAR_SCREEN: undefined;
+  ASSESSMENT_SCREEN: undefined;
+};
+
+const Header:FC<HeaderProps> = ({hideHamburgerIcon=false}) => {
   const { width, height } = useWindowDimensions();
-  const Styles = styles(); // Assuming styles is a function that generates styles
-  const navigation = useNavigation(); // Access the navigation prop to control the drawer
+  const Styles = styles(); 
+
+  const navigation = useNavigation<DrawerNavigationProp<RootDrawerParamList>>();
 
   const openDrawer = () => {
-    navigation.toggleDrawer(); // Toggle the drawer (open/close)
+    navigation.toggleDrawer(); 
   };
 
   return (
     <View style={Styles.headerContainer}>
       <View style={[Styles.headerInnerContainer, { paddingVertical: 2 }]}>
         {/* Hamburger Icon for toggling the drawer */}
-        <TouchableOpacity onPress={openDrawer}>
+        {!hideHamburgerIcon && <TouchableOpacity onPress={openDrawer}>
           <Ionicons 
-            name="menu" // Hamburger icon
-            size={34} // Icon size
-            color={Colors.CLR_WHITE} // Icon color
-            style={{ marginLeft: 10 }} // Adjust the icon position
+            name="menu" 
+            size={34} 
+            color={Colors.CLR_WHITE} 
+            style={{ marginLeft: 10 }} 
           />
-        </TouchableOpacity>
+        </TouchableOpacity>}
         
         {/* Indigo logo */}
         <Image

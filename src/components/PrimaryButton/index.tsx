@@ -4,7 +4,7 @@ import {styles} from './styles';
 
 export interface PrimaryButtonProps {
   handlePress: () => void;
-  text: string;
+  text?: string;
   customStyles?: ViewStyle;
   icon?: any;
   textStyles?: TextStyle;
